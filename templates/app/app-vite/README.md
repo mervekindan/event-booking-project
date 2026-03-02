@@ -86,7 +86,11 @@ Authorization: Bearer <accessToken>
 
 ### Seed data
 
-Event data lives in `api/db.json`. Edit it freely — the server reloads automatically. 
+Event data lives in `api/db.json`. Edit it freely — the server reloads automatically.
+
+### Data structure
+
+json-server stores whatever JSON you send it — it does no validation. This means if you POST an order with `items` in one place and `tickets` somewhere else, both will be saved without error. Decide on a consistent shape for each resource early and stick to it throughout your app, otherwise your UI will break in hard-to-debug ways.
 
 ## Calling the API using `fetch` and the `api()` helper
 
