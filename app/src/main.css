@@ -1,0 +1,20 @@
+html,
+body,
+#root {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    font-family: "Montserrat", sans-serif;
+    background-color: #fbfef9;
+    color: #2d376b;
+    display: flex;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
