@@ -1,9 +1,27 @@
-.event-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-}
-
 .event-list {
     padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.event-list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.event-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 420px));
+    gap: 2rem;
+    justify-content: center;
+}
+
+.filter-categories {
+    background-color: #2d376b;
+    color: #fbfef9;
+    padding: 8px 12px;
+    border: 1px solid #2d376b;
+    border-radius: 8px;
 }
