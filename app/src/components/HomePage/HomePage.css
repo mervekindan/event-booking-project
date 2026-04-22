@@ -1,7 +1,5 @@
 .home-content {
-    padding: 20px;
+    padding: 2rem;
     width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin: 0 auto;
 }
