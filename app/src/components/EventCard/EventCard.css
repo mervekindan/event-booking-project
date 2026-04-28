@@ -1,7 +1,21 @@
 .event-card {
     background-color: #ffbe0b;
-    padding: 1rem;
+    padding: 1.5rem;
     border-radius: 24px;
+}
+
+.card-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.category-chips {
+    background-color: #db5a42;
+    color: #fbfef9;
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-size: 0.8rem;
 }
 
 .buy-ticket-btn {
