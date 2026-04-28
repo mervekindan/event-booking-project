@@ -50,7 +50,9 @@ export default function EventDetail({ event }) {
                     <strong>
                         {event.ticketsAvailable === 0
                             ? "Sold out"
-                            : `${event.ticketsAvailable} tickets left`}
+                            : event.ticketsAvailable === 1
+                              ? "1 ticket left"
+                              : `${event.ticketsAvailable} tickets left`}
                     </strong>
                 </p>
             </div>
@@ -61,18 +63,32 @@ export default function EventDetail({ event }) {
                     <input
                         type="number"
                         min="1"
-                        max={event.ticketsAvailable}
+                        max={event.ticketsAvailable || 1}
                         value={quantity}
-                        onChange={(e) => setQuantity(Number(e.target.value))}
+                        onChange={(e) => {
+                            const value = Math.max(
+                                1,
+                                Math.min(
+                                    event.ticketsAvailable,
+                                    Number(e.target.value),
+                                ),
+                            );
+
+                            setQuantity(value);
+                        }}
+                        disabled={event.ticketsAvailable === 0}
                     />
                 </label>
 
-                <p>Total: €{quantity * event.price}</p>
+                <p>
+                    Total:{" "}
+                    {event.price === 0 ? "Free" : `€${quantity * event.price}`}
+                </p>
                 <button
                     className="add-to-cart-btn"
                     disabled={event.ticketsAvailable === 0}
                 >
-                    Add to cart
+                    {event.price === 0 ? "Register" : "Add to cart"}
                 </button>
             </div>
         </div>
