@@ -1,43 +1,40 @@
-import events from "../../data/events.js";
+import { useEffect, useState } from "react";
 import { EventCard } from "../EventCard/EventCard.jsx";
 import "./EventList.css";
 
-// TODO: replace the mock data import with a fetch call to GET /events
+const BASE_URL = "http://localhost:3001";
 
-export default function EventList({ category, setCategory }) {
-    const filteredEvents =
-        category === "all"
-            ? events
-            : events.filter(
-                  (event) =>
-                      event.category.toLowerCase() === category.toLowerCase(),
-              );
+export default function EventList({ search, category }) {
+    const [events, setEvents] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        fetch(`${BASE_URL}/events`)
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error("Failed to fetch events");
+                }
+                return res.json();
+            })
+            .then((data) => {
+                setEvents(data);
+                setLoading(false);
+            })
+            .catch((err) => {
+                setError(err.message);
+                setLoading(false);
+            });
+    }, []);
+
+    if (loading) return <p>Loading events...</p>;
+    if (error) return <p>Error: {error}</p>;
 
     return (
-        <section className="event-list">
-            <div className="event-list-header">
-                <h1>Upcoming Events ({filteredEvents.length})</h1>
-                <select
-                    className="filter-categories"
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                >
-                    <option value="all">All Categories</option>
-                    <option value="conference">Conference</option>
-                    <option value="hackathon">Hackathon</option>
-                    <option value="workshop">Workshop</option>
-                </select>
-            </div>
-
-            {filteredEvents.length === 0 ? (
-                <p>No events found for this category</p>
-            ) : (
-                <div className="event-grid">
-                    {filteredEvents.map((event) => (
-                        <EventCard key={event.id} event={event} />
-                    ))}
-                </div>
-            )}
-        </section>
+        <div className="event-grid">
+            {events.map((event) => (
+                <EventCard key={event.id} event={event} />
+            ))}
+        </div>
     );
 }
