@@ -1,5 +1,36 @@
 .home-content {
-    padding: 2rem;
-    width: 100%;
+    width: 80%;
     margin: 0 auto;
+}
+
+.event-list {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.home-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 24px 0;
+}
+
+.filtration {
+    display: flex;
+    justify-content: right;
+    gap: 24px;
+}
+
+.search-input,
+.filter-categories {
+    background-color: #2d376b;
+    color: #fbfef9;
+    padding: 8px 12px;
+    border: 1px solid #2d376b;
+    border-radius: 8px;
+}
+
+input::placeholder {
+    color: #b5b8b4;
 }
