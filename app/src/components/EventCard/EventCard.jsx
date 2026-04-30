@@ -1,9 +1,9 @@
+import { Link } from "react-router-dom";
 import "./EventCard.css";
 
 export function EventCard({ event }) {
     return (
-        <div className="event-card">
-            {/* <img src={event.image} alt={event.name} /> */}
+        <Link to={`/events/${event.id}`} className="event-card">
             <div className="card-heading">
                 <h2>{event.name}</h2>
                 <div className="category-chips">
@@ -31,6 +31,6 @@ export function EventCard({ event }) {
             >
                 {event.ticketsAvailable === 0 ? "Sold out" : "Buy ticket"}
             </button>
-        </div>
+        </Link>
     );
 }
