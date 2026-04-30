@@ -4,7 +4,7 @@ import "./EventList.css";
 
 const BASE_URL = "http://localhost:3001";
 
-export default function EventList({ search, category }) {
+export default function EventList({ search, category, page, setTotal }) {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -16,6 +16,9 @@ export default function EventList({ search, category }) {
             if (search) query.append("q", search);
             if (category !== "all") query.append("category_like", category);
 
+            query.append("_page", page);
+            query.append("_limit", 3);
+
             setLoading(true);
             setError(null);
 
@@ -24,6 +27,10 @@ export default function EventList({ search, category }) {
                     if (!res.ok) {
                         throw new Error("Failed to fetch events");
                     }
+
+                    const totalCount = res.headers.get("X-Total-Count");
+                    setTotal(Number(totalCount));
+
                     return res.json();
                 })
                 .then((data) => {
@@ -37,19 +44,13 @@ export default function EventList({ search, category }) {
         }, 300);
 
         return () => clearTimeout(timeout);
-    }, [category, search]);
+    }, [category, search, page]);
 
     if (loading) return <p>Loading events...</p>;
     if (error) return <p>Error: {error}</p>;
 
     return (
-        <section className="event-list">
-            <h2>
-                {" "}
-                {events.length === 0
-                    ? "No events found"
-                    : `${events.length} event${events.length > 1 ? "s" : ""} found`}
-            </h2>
+        <>
             {events.length === 0 ? (
                 <p>
                     No events found
@@ -72,7 +73,7 @@ export default function EventList({ search, category }) {
                         <EventCard key={event.id} event={event} />
                     ))}
                 </div>
-            )}
-        </section>
+            )}{" "}
+        </>
     );
 }

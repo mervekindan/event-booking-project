@@ -2,12 +2,19 @@ import { useState, useEffect } from "react";
 import EventDetail from "../EventDetail/EventDetail";
 import EventList from "../EventList/EventList";
 import "./HomePage.css";
-import events from "../../data/events";
 
 // Feel free to replace the content of this component with your own
 function HomePage() {
     const [category, setCategory] = useState("all");
     const [search, setSearch] = useState("");
+    const [page, setPage] = useState(1);
+    const [total, setTotal] = useState(0);
+
+    const totalPages = Math.ceil(total / 3);
+
+    useEffect(() => {
+        setPage(1);
+    }, [search, category]);
 
     return (
         <div className="home-content">
@@ -36,11 +43,40 @@ function HomePage() {
                     </select>
                 </div>
             </div>
+            <section className="event-list">
+                <h2>
+                    {" "}
+                    {total === 0
+                        ? "No events found"
+                        : `${total} event${total > 1 ? "s" : ""} found`}
+                </h2>
 
-            <EventList search={search} category={category} />
-            <EventDetail event={events[2]} />
+                <EventList
+                    search={search}
+                    category={category}
+                    page={page}
+                    setTotal={setTotal}
+                />
+            </section>
+            <div className="pagination">
+                <button
+                    onClick={() => setPage((p) => Math.max(p - 1, 1))}
+                    disabled={page === 1}
+                >
+                    Previous
+                </button>
+                <span>
+                    Page {page} of {totalPages || 1}
+                </span>
+                <button
+                    onClick={() => setPage((p) => p + 1)}
+                    disabled={page >= totalPages}
+                >
+                    Next
+                </button>
+            </div>
         </div>
     );
 }
-console.log(category);
+
 export default HomePage;

@@ -23,7 +23,8 @@
 }
 
 .search-input,
-.filter-categories {
+.filter-categories,
+.pagination button {
     background-color: #2d376b;
     color: #fbfef9;
     padding: 8px 12px;
@@ -32,5 +33,21 @@
 }
 
 input::placeholder {
+    color: #b5b8b4;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 2rem 0;
+}
+
+.pagination button:disabled {
+    background-color: #7f89bd;
+    border: 1px solid #7f89bd;
     color: #b5b8b4;
 }
