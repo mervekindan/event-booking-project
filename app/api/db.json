@@ -1,5 +1,16 @@
 {
-  "users": [],
+  "users": [
+    {
+      "email": "test@test.com",
+      "password": "$2a$10$0p5EAhUR6x2m3y3Sk2Rfle8dOYH7eVVO.M113zfxjBZCAdd4fNA6G",
+      "id": 1
+    },
+    {
+      "email": "example@example.com",
+      "password": "$2a$10$btahqkP/NQdXMJHLCSNoF.5CgpqZp8f67Nlu.UoEr.urZwMSujsdm",
+      "id": 2
+    }
+  ],
   "events": [
     {
       "id": 1,
