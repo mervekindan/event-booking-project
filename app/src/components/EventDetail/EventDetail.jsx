@@ -1,19 +1,40 @@
-// TODO: use useParams() to get the event id from the URL
-// TODO: fetch the event from GET /events/:id instead of using mock data
-import { useState } from "react";
-import events from "../../data/events.js";
+import { useState, useEffect } from "react";
+import { useAsyncError, useParams } from "react-router-dom";
 import "./EventDetail.css";
 
-export default function EventDetail({ event }) {
-    const [quantity, setQuantity] = useState(1);
+const BASE_URL = "http://localhost:3001";
 
-    if (!event) {
-        return (
-            <div className="event-detail">
-                <p>Select an event to see details</p>
-            </div>
-        );
-    }
+export default function EventDetail() {
+    const { id } = useParams();
+
+    const [quantity, setQuantity] = useState(1);
+    const [event, setEvent] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        setLoading(true);
+
+        fetch(`${BASE_URL}/events/${id}`)
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error("Failed to fetch event");
+                }
+                return res.json();
+            })
+            .then((data) => {
+                setEvent(data);
+                setLoading(false);
+            })
+            .catch((err) => {
+                setError(err.message);
+                setLoading(false);
+            });
+    }, [id]);
+
+    if (loading) return <p>Loading event...</p>;
+    if (error) return <p>Error: {error}</p>;
+    if (!event) return <p>No event found</p>;
 
     return (
         <div className="event-detail-container">
