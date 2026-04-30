@@ -14,21 +14,34 @@ export function NavBar() {
             >
                 <img src={hyfLogo} alt="HackYourFuture logo" className="logo" />
             </a>
-            {/* Navigation links go here — e.g. link to event list, cart, login */}
+
             <div className="nav-links">
+                <Link to="/" className="link">
+                    Home
+                </Link>{" "}
                 <Link to="/events" className="link">
                     Events
-                </Link>
+                </Link>{" "}
+            </div>
 
-                {user && (
+            <div className="user-links">
+                {user ? (
                     <>
-                        <span>{user.email}</span>
-                        <button onClick={logout}>Sign out</button>
+                        <span className="user-email">{user.email}</span>
+                        <button className="logout-btn" onClick={logout}>
+                            Sign out
+                        </button>
+                    </>
+                ) : (
+                    <>
+                        <Link to={"/login"} className="link">
+                            Login
+                        </Link>
+                        <Link to={"/register"} className="link">
+                            Register
+                        </Link>
                     </>
                 )}
-
-                <Link to="/login">Login</Link>
-                <Link to="/register">Register</Link>
             </div>
         </nav>
     );
