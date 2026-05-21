@@ -1,16 +1,21 @@
 import { useState, useEffect } from "react";
 import { useAsyncError, useParams } from "react-router-dom";
 import "./EventDetail.css";
+import { useCart } from "../../context/CartContext";
+import { useNavigate } from "react-router-dom";
 
 const BASE_URL = "http://localhost:3001";
 
 export default function EventDetail() {
     const { id } = useParams();
+    const { addToCart, cartItems } = useCart();
 
     const [quantity, setQuantity] = useState(1);
     const [event, setEvent] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         setLoading(true);
@@ -108,8 +113,12 @@ export default function EventDetail() {
                 <button
                     className="add-to-cart-btn"
                     disabled={event.ticketsAvailable === 0}
+                    onClick={() => {
+                        addToCart(event, quantity);
+                        navigate("/cart");
+                    }}
                 >
-                    {event.price === 0 ? "Register" : "Add to cart"}
+                    Add to cart
                 </button>
             </div>
         </div>
