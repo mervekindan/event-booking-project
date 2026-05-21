@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { EventCard } from "../EventCard/EventCard.jsx";
 import "./EventList.css";
-
-const BASE_URL = "http://localhost:3001";
+import api from "../../api.js";
 
 export default function EventList({ search, category, page, setTotal }) {
     const [events, setEvents] = useState([]);
@@ -22,7 +21,7 @@ export default function EventList({ search, category, page, setTotal }) {
             setLoading(true);
             setError(null);
 
-            fetch(`${BASE_URL}/events?${query.toString()}`)
+            fetch(api(`/events?${query.toString()}`))
                 .then((res) => {
                     if (!res.ok) {
                         throw new Error("Failed to fetch events");

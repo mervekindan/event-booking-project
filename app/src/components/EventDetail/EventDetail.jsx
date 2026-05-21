@@ -3,8 +3,7 @@ import { useAsyncError, useParams } from "react-router-dom";
 import "./EventDetail.css";
 import { useCart } from "../../context/CartContext";
 import { useNavigate } from "react-router-dom";
-
-const BASE_URL = "http://localhost:3001";
+import api from "../../api";
 
 export default function EventDetail() {
     const { id } = useParams();
@@ -20,7 +19,7 @@ export default function EventDetail() {
     useEffect(() => {
         setLoading(true);
 
-        fetch(`${BASE_URL}/events/${id}`)
+        fetch(api(`/events/${id}`))
             .then((res) => {
                 if (!res.ok) {
                     throw new Error("Failed to fetch event");
