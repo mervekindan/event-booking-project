@@ -1,17 +1,19 @@
-import { useState } from "react";
-import EventDetail from "../EventDetail/EventDetail";
-import EventList from "../EventList/EventList";
+import { Link } from "react-router-dom";
 import "./HomePage.css";
-import events from "../../data/events";
 
 // Feel free to replace the content of this component with your own
 function HomePage() {
-    const [category, setCategory] = useState("all");
-
     return (
         <div className="home-content">
-            <EventList category={category} setCategory={setCategory} />
-            <EventDetail event={events[2]} />
+            <h1 className="home-title">Discover Events You'll Actually Love</h1>
+            <p className="home-subtitle">
+                Find conferences, workshops, hackathons and meetups happening
+                near you. Explore, book, and join events in seconds.
+            </p>
+
+            <Link to="/events" className="home-button">
+                Discover events
+            </Link>
         </div>
     );
 }
