@@ -11,6 +11,7 @@ import "./main.css";
 import EventDetail from "./components/EventDetail/EventDetail.jsx";
 import EventsPage from "./components/EventsPage/EventsPage.jsx";
 import { CartProvider } from "./context/CartContext.jsx";
+import CartPage from "./components/CartPage/CartPage.jsx";
 // Cart model: cart items are stored in localStorage via CartContext (no backend needed).
 // At checkout, the cart is POSTed to POST /api/orders and then cleared.
 // CartContext should follow the same pattern as AuthContext — see that file for reference.
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
             { index: true, element: <HomePage /> },
             { path: "/events", element: <EventsPage /> },
             { path: "/events/:id", element: <EventDetail /> },
+            { path: "/cart", element: <CartPage /> },
         ],
     },
     { path: "/login", element: <Login /> },
